@@ -45,5 +45,6 @@ rdd = spark.sparkContext.parallelize([("jayChou", 41), ("burukeyou", 23), ("jack
 df = spark.createDataFrame(rdd.map(lambda row: Row(name=row[0], age=row[1])))
 
 df.printSchema()
+#sakmosil
 
 df.select('name', col('age').cast(StringType())).printSchema()
