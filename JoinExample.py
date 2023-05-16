@@ -24,3 +24,4 @@ d_df = spark.read.format('jdbc')\
 
 e_df.join(d_df, e_df['department_id'] == d_df['department_id'])\
     .select(e_df['first_name'], e_df['last_name'], d_df['department_name']).show()
+#jodslcgdhsjlj
