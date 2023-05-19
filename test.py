@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark import find_spark_home, HiveContext
+from pyspark.sql.functions import year, col
 
 from SparkSessionBase import SparkSessionBase
 
@@ -13,7 +14,7 @@ class TextRandJob(SparkSessionBase):
 
     def start(self):
         hc=HiveContext(self.spark.sparkContext)
-        b_df=hc.table('business')
+        b_df=hc.table('review')
         b_df.show()
 
 # XXX 大数据分析代码
