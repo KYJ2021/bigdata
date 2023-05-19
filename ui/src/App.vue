@@ -1,26 +1,23 @@
 <template>
-  <div id="app">
-    <Recommendation />
+  <div class="app">
+    <MainPage />
   </div>
 </template>
 
 <script>
-import Recommendation from './components/Recommendation.vue';
+import MainPage from "@/components/MainPage.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Recommendation,
+    MainPage,
   },
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.app {
+  width: 100%;
+  height: 100%;
 }
 </style>
