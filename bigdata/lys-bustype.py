@@ -22,11 +22,13 @@ class BusinessAnalysis(SparkSessionBase):
         #对数组组成的类别扩展
         b_df = df.withColumn("categories", split("categories", ",")) \
             .select("business_id", "name", "stars", "review_count", explode("categories").alias("categories"))
-        b_df = b_df.withColumn("rank1",
-                               row_number().over(Window.partitionBy("categories").orderBy(desc("review_count"))))
+        #增加对评论数按类型排名
+        b_df = b_df.withColumn("rank1",row_number().over(Window.partitionBy("categories").orderBy(desc("review_count"))))
+        #用星级和评论数计算平均参数，并利用该参数按类型排名
         b_df = b_df.withColumn("avg", 0.3*col("stars") / 5.0 + 0.7*col("review_count")/8000)
         b_df = b_df.withColumn("rank2", row_number().over(Window.partitionBy("categories").orderBy(desc("avg"))))
         b_df.show(100)
+
         b_df.write.format("jdbc").\
             option("url", "jdbc:mysql://192.168.102.105:3306/bigdata").\
             option('driver','com.mysql.jdbc.Driver').\
