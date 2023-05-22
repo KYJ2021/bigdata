@@ -14,13 +14,14 @@ class Save(SparkSessionBase):
 
     def start(self):
         hc = HiveContext(self.spark.sparkContext)
-        df = hc.table('***')
+        df = hc.table('review').limit(100)
         #spark分析代码
-        result = df.select()
+        result = df
 
         #将结果保存到D:/tables/test_json目录下的一个csv文件
         result.repartition(1)\
             .write.format("csv")\
+            .option("header",True)\
             .save("file:///D:/tables/test_json")
 
 # XXX 大数据分析代码
