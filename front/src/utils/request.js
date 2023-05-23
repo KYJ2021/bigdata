@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const request = axios.create({
     baseURL: `http://localhost:9090`,
-    timeout: 5000
+    timeout: 200000
 })
 
 // request 拦截器

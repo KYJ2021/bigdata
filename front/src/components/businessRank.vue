@@ -5,15 +5,20 @@
         <el-option v-for="item in Llist" :value="item.isLocal" :key="item.isLocal"
                    :label="item.content" style="font-weight: normal; color: #6b6b6b"></el-option>
       </el-select>
-      <el-select v-model="yearOrMonth" class="ml-5" placeholder="日期范围">
-        <el-option v-for="item in Dlist" :value="item.yearOrMonth" :key="item.yearOrMonth"
+      <el-select v-model="rankRule" class="ml-5" placeholder="日期范围">
+        <el-option v-for="item in slist" :value="item.rankRule" :key="item.rankRule"
                    :label="item.content" style="font-weight: normal; color: #6b6b6b"></el-option>
       </el-select>
-      <el-button class="ml-5" type="primary" @click="load">筛选</el-button>
+      <el-button class="ml-5" type="primary" @click="load" round>筛选</el-button>
     </div>
 
     <el-table :data="tableData" border stripe :header-cell-class-name="'headerBg'"  @selection-change="handleSelectionChange">
-      <el-table-column prop="rank2" label="排名" align="center"></el-table-column>
+      <el-table-column v-if="orderBy=='rank_avg'" prop="rank_avg" label="排名" align="center"></el-table-column>
+      <el-table-column v-if="orderBy=='rank_avg_city'" prop="rank_avg_city" label="排名" align="center"></el-table-column>
+      <el-table-column v-if="orderBy=='rank_review'" prop="rank_review" label="排名" align="center"></el-table-column>
+      <el-table-column v-if="orderBy=='rank_review_city'" prop="rank_review_city" label="排名" align="center"></el-table-column>
+      <el-table-column v-if="orderBy=='rank_checkin'" prop="rank_checkin" label="排名" align="center"></el-table-column>
+      <el-table-column v-if="orderBy=='rank_checkin_city'" prop="rank_checkin_city" label="排名" align="center"></el-table-column>
       <el-table-column prop="name" label="店铺名称" align="center"></el-table-column>
       <el-table-column prop="categories" label="种类" align="center"></el-table-column>
       <el-table-column prop="stars" label="星级" align="center"></el-table-column>
@@ -47,12 +52,14 @@ export default {
       pageNum: 1,
       pageSize: 10,
       categories: "Macarons",
+      orderBy: "",
       user: JSON.parse(localStorage.getItem("user")),
       //这块变量名要改成和数据库中的一致
       isLocal: 0,
-      yearOrMonth: 0,
+      rankRule: 0,
       Llist: [{isLocal: 0,content: "当前地区"},{isLocal: 1,content: "全部地区"}],
-      Dlist: [{yearOrMonth: 0,content: "最近一月"},{yearOrMonth: 1,content: "最近一年"}],
+      slist: [{rankRule: 0,content: "综合"},{rankRule: 1,content: "按评论数"},{rankRule: 2,content: "按打卡数"}],
+      city: 'Philadelphia',
     }
   },
   created() {
@@ -61,11 +68,38 @@ export default {
   },
   methods: {
     load() {
+      this.tableData=[]
+      if (this.isLocal==0){
+        if (this.rankRule==0){
+          this.orderBy="rank_avg_city"
+        }
+        else if (this.rankRule==1){
+          this.orderBy="rank_review_city"
+        }
+        else if (this.rankRule==2){
+          this.orderBy="rank_checkin_city"
+        }
+      }
+      else if (this.isLocal==1){
+        if (this.rankRule==0){
+          this.orderBy="rank_avg"
+        }
+        else if (this.rankRule==1){
+          this.orderBy="rank_review"
+        }
+        else if (this.rankRule==2){
+          this.orderBy="rank_checkin"
+        }
+      }
+      console.log(this.isLocal)
       request.get("/business/rank/type", {
         params: {
           pageNum: this.pageNum,
           pageSize: this.pageSize,
-          categories: this.categories
+          categories: this.categories,
+          orderBy: this.orderBy,
+          isLocal: this.isLocal,
+          city: this.city,
         }
       }).then(res => {
         console.log(res)
