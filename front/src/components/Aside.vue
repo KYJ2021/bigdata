@@ -28,7 +28,7 @@
           <span slot="title">商户排名</span>
         </template>
       </el-menu-item>
-      <el-menu-item index="/arrangement">
+      <el-menu-item index="/ReviewChange">
         <template slot="title">
           <i class="el-icon-alarm-clock"></i>
           <span slot="title">评论分析</span>

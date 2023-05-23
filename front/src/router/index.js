@@ -30,6 +30,11 @@ const routes = [
         name: 'businessRank',
         component: () => import('../components/businessRank.vue')
       },
+        {
+        path: '/ReviewChange',
+        name: 'ReviewChange',
+        component: () => import('../components/ReviewChange.vue')
+      },
     ]
   },
   {
