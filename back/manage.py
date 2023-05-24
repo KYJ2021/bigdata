@@ -2,6 +2,7 @@ from flask import Flask
 # from flask_sqlalchemy import SQLAlchemy
 from blueprints.user import user_bp
 from blueprints.business import business_bp
+from blueprints.login import login_bp
 
 # 创建 Flask 应用程序实例
 from flask_cors import CORS
@@ -18,6 +19,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # 注册蓝图
 app.register_blueprint(user_bp)
 app.register_blueprint(business_bp)
+app.register_blueprint(login_bp)
 
 # 如果是主程序入口，则启动 Flask 应用程序
 if __name__ == '__main__':

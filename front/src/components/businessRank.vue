@@ -9,6 +9,10 @@
         <el-option v-for="item in slist" :value="item.rankRule" :key="item.rankRule"
                    :label="item.content" style="font-weight: normal; color: #6b6b6b"></el-option>
       </el-select>
+      <el-select v-model="categories" class="ml-5" placeholder="选择种类">
+        <el-option v-for="item in categories_array" :value="item" :key="item"
+                   :label="item" style="font-weight: normal; color: #6b6b6b"></el-option>
+      </el-select>
       <el-button class="ml-5" type="primary" @click="load" round>筛选</el-button>
     </div>
 
@@ -51,9 +55,10 @@ export default {
       total: 0,
       pageNum: 1,
       pageSize: 10,
-      categories: "Macarons",
+      categories: "请选择种类",
       orderBy: "",
       user: JSON.parse(localStorage.getItem("user")),
+      categories_array: JSON.parse(localStorage.getItem("user"))['categories'].split(',').map((item) => item.trim()),
       //这块变量名要改成和数据库中的一致
       isLocal: 0,
       rankRule: 0,
@@ -68,6 +73,7 @@ export default {
   },
   methods: {
     load() {
+      console.log(this.categories_array)
       this.tableData=[]
       if (this.isLocal==0){
         if (this.rankRule==0){
@@ -96,6 +102,7 @@ export default {
         params: {
           pageNum: this.pageNum,
           pageSize: this.pageSize,
+          business_id: this.user.id,
           categories: this.categories,
           orderBy: this.orderBy,
           isLocal: this.isLocal,

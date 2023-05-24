@@ -17,6 +17,7 @@ export default {
     return {
       tableData: [],
       revBusinessId: "ZnxGRJpKHRQ0SAYSJk4SFw",
+      user: JSON.parse(localStorage.getItem("user"))
     }
   },
   created() {
@@ -25,6 +26,7 @@ export default {
   },
   methods: {
     load(){
+      this.revBusinessId=this.user.id
       request.get("/business/review", {
         params: {
           revBusinessId: this.revBusinessId,

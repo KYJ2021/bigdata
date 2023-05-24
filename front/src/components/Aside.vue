@@ -72,9 +72,9 @@ export default {
   },
   created() {
     this.load()
-    if(this.user.userType == 1){
+    if(this.user.userType == 2){
       this.businessVisible=true
-    }else if(this.user.userType ==2){
+    }else if(this.user.userType ==1){
       this.intervieweeVisible=true
     }
     console.log(typeof this.user.userType)

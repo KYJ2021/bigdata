@@ -21,17 +21,25 @@ conn = pymysql.connect(
 def get_rank():
     page_num = request.args.get('pageNum', 1, type=int)
     page_size = request.args.get('pageSize', 10, type=int)
+    # business_id = request.args.get('business_id', '')
     categories = request.args.get('categories', '')
     orderBy = request.args.get('orderBy', '')
     isLocal = request.args.get('isLocal', '')
     city = request.args.get('city', '')
-    print(isLocal)
+
+    # sqlf = f"SELECT * FROM business_sort WHERE business_id = '{business_id}'"
+    # print(sqlf)
+    # with conn.cursor() as cursor:
+    #     cursor.execute(sqlf)
+    #     categories_array = cursor.fetchall()
+    # print(categories_array)
+    # categories=categories_array[0]['categories']
+
     # 构建查询条件
     filters = []
     if categories:
-        filters.append(f"categories like '%{categories}%'")
+        filters.append(f"categories = '{categories}'")
     if isLocal == '0':
-        print("就是 "+isLocal)
         if city:
             filters.append(f"city like '%{city}%'")
 

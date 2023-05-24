@@ -7,11 +7,11 @@
         <el-breadcrumb-item>{{ currentPathName }}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <el-dropdown style="width: 100px; cursor: pointer">
-      <div style="display: inline-block">
-        <span>{{ user.username }}</span><i class="el-icon-arrow-down"></i>
+    <el-dropdown style="width: auto; cursor: pointer; white-space: nowrap;">
+      <div style="display: inline-block; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">
+        <span>{{ user.nickname }}</span><i class="el-icon-arrow-down"></i>
       </div>
-      <el-dropdown-menu slot="dropdown" style="width: 100px; text-align: center">
+      <el-dropdown-menu slot="dropdown" style="width: 100px; text-align: center; margin-top: -30px;">
         <el-dropdown-item style="font-size: 14px; padding: 5px 0">
           <router-link to="/person">个人信息</router-link>
         </el-dropdown-item>
