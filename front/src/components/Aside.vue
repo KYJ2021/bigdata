@@ -17,7 +17,7 @@
         <span slot="title">主页</span>
       </template>
     </el-menu-item>
-    <el-submenu v-if="businessVisible">
+    <el-submenu v-if="businessVisible" index="2">
       <template slot="title">
         <i class="el-icon-menu"></i>
         <span slot="title">商户应用</span>
@@ -28,12 +28,18 @@
           <span slot="title">商户排名</span>
         </template>
       </el-menu-item>
-      <el-menu-item index="/ReviewChange">
+      <el-submenu index="2-1">
         <template slot="title">
-          <i class="el-icon-alarm-clock"></i>
+          <i class="el-icon-menu"></i>
           <span slot="title">评论分析</span>
         </template>
-      </el-menu-item>
+        <el-menu-item index="/ReviewChange">
+          <template slot="title">
+            <i class="el-icon-alarm-clock"></i>
+            <span slot="title">评论变化</span>
+          </template>
+        </el-menu-item>
+      </el-submenu>
       <el-menu-item index="/interview">
         <template slot="title">
           <i class="el-icon-s-custom"></i>

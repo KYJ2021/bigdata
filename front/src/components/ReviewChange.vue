@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       tableData: [],
-      revBusinessId: "ZnxGRJpKHRQ0SAYSJk4SFw",
+      revBusinessId: "",
       user: JSON.parse(localStorage.getItem("user"))
     }
   },

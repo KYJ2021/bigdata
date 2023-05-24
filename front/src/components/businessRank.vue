@@ -16,7 +16,7 @@
       <el-button class="ml-5" type="primary" @click="load" round>筛选</el-button>
     </div>
 
-    <el-table :data="tableData" border stripe :header-cell-class-name="'headerBg'"  @selection-change="handleSelectionChange">
+    <el-table :data="tableData" @selection-change="handleSelectionChange">
       <el-table-column v-if="orderBy=='rank_avg'" prop="rank_avg" label="排名" align="center"></el-table-column>
       <el-table-column v-if="orderBy=='rank_avg_city'" prop="rank_avg_city" label="排名" align="center"></el-table-column>
       <el-table-column v-if="orderBy=='rank_review'" prop="rank_review" label="排名" align="center"></el-table-column>
@@ -25,7 +25,7 @@
       <el-table-column v-if="orderBy=='rank_checkin_city'" prop="rank_checkin_city" label="排名" align="center"></el-table-column>
       <el-table-column prop="name" label="店铺名称" align="center"></el-table-column>
       <el-table-column prop="categories" label="种类" align="center"></el-table-column>
-      <el-table-column prop="stars" label="星级" align="center"></el-table-column>
+      <el-table-column prop="stars" label="星级" align="center" i class="el-icon-star"></el-table-column>
     </el-table>
 
     <div style="padding: 10px 0">
@@ -196,5 +196,8 @@ export default {
 <style>
 .headerBg {
   background: #eee!important;
+}
+.my-table-row {
+  margin-bottom: 20px;
 }
 </style>
