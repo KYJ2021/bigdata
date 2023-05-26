@@ -49,7 +49,12 @@ export default {
           }).then(res => {
             if(res){
               localStorage.setItem("user", JSON.stringify(res.data[0]))  // 存储用户信息到浏览器
-              this.$router.push("/")
+              this.user=JSON.parse(localStorage.getItem("user"))
+              if(this.user.userType==1){
+                this.$router.push("/user")
+              }else {
+                this.$router.push("/")
+              }
               this.$message.success("登录成功")
             }else {
               this.$message.error("登录失败")

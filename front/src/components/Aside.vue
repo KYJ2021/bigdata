@@ -39,6 +39,12 @@
             <span slot="title">评论变化</span>
           </template>
         </el-menu-item>
+        <el-menu-item index="/WordCloud">
+          <template slot="title">
+            <i class="el-icon-alarm-clock"></i>
+            <span slot="title">评论词云</span>
+          </template>
+        </el-menu-item>
       </el-submenu>
       <el-menu-item index="/interview">
         <template slot="title">
@@ -46,6 +52,48 @@
           <span slot="title">经营建议</span>
         </template>
       </el-menu-item>
+    </el-submenu>
+    <el-submenu v-if="adminVisible" index="3">
+      <template slot="title">
+        <i class="el-icon-menu"></i>
+        <span slot="title">平台应用</span>
+      </template>
+      <el-submenu index="3-1">
+        <template slot="title">
+          <i class="el-icon-menu"></i>
+          <span slot="title">用户分析</span>
+        </template>
+        <el-menu-item index="/NewUser">
+          <template slot="title">
+            <i class="el-icon-alarm-clock"></i>
+            <span slot="title">用户新增</span>
+          </template>
+        </el-menu-item>
+        <el-menu-item index="/UserActivity">
+          <template slot="title">
+            <i class="el-icon-alarm-clock"></i>
+            <span slot="title">用户活跃度</span>
+          </template>
+        </el-menu-item>
+      </el-submenu>
+      <el-submenu index="3-2">
+        <template slot="title">
+          <i class="el-icon-menu"></i>
+          <span slot="title">商户分析</span>
+        </template>
+        <el-menu-item index="/businessType">
+          <template slot="title">
+            <i class="el-icon-alarm-clock"></i>
+            <span slot="title">各种类商户</span>
+          </template>
+        </el-menu-item>
+        <el-menu-item index="/areaRank">
+          <template slot="title">
+            <i class="el-icon-alarm-clock"></i>
+            <span slot="title">各地区商户</span>
+          </template>
+        </el-menu-item>
+      </el-submenu>
     </el-submenu>
     <el-menu-item index="/booking" v-if="intervieweeVisible">
       <template>
@@ -73,6 +121,7 @@ export default {
     return{
       businessVisible: false,
       intervieweeVisible: false,
+      adminVisible: false,
       user: {}
     }
   },
@@ -82,6 +131,8 @@ export default {
       this.businessVisible=true
     }else if(this.user.userType ==1){
       this.intervieweeVisible=true
+    }else if (this.user.userType ==0){
+      this.adminVisible=true
     }
     console.log(typeof this.user.userType)
   },

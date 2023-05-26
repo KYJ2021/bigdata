@@ -28,7 +28,7 @@ export default {
   name: 'Home',
   data() {
     return {
-      msg: "hello 青哥哥",
+      msg: "",
       collapseBtnClass: 'el-icon-s-fold',
       isCollapse: false,
       sideWidth: 200,

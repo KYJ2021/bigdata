@@ -93,3 +93,38 @@ def get_review():
         # total = cursor.fetchone()['COUNT(*)']
         # 将查询结果转换为字典格式，并返回给前端
     return jsonify(data)
+@business_bp.route('/business/wordcloud')
+def get_word_list():
+    business_id = request.args.get('business_id', '')
+
+    # 构建查询条件
+    filters = []
+    if business_id:
+        filters.append(f"business_id = '{business_id}'")
+        print(business_id)
+    else:
+        print('error')
+        return 'error'
+
+    sql = f"SELECT * FROM ReviewKeywords"
+    if filters:
+        sql += " WHERE " + " AND ".join(filters)
+    with conn.cursor() as cursor:
+        cursor.execute(sql)
+        res_list = cursor.fetchall()
+        print(res_list)
+        res_list = res_list[0]['str_keywords'].split()
+        data = []
+        i=0
+        for item in res_list:
+            i+=0.5
+            data.append({
+                'name': item,
+                # 'value': np.floor(0.2*np.exp(-(0.3*i-3))+10)
+                'value': 50-0.5*i*i
+            })
+        # cursor.execute("SELECT COUNT(*) FROM ReviewKeywords"+" WHERE " + " AND ".join(filters))
+        # total = cursor.fetchone()['COUNT(*)']
+        # 将查询结果转换为字典格式，并返回给前端
+        print(data)
+    return jsonify(data)

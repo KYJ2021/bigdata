@@ -25,15 +25,40 @@ const routes = [
         name: 'Arrangement',
         component: () => import('../components/Arrangement.vue')
       },
-        {
+      {
         path: '/businessRank',
         name: 'businessRank',
         component: () => import('../components/businessRank.vue')
       },
-        {
+      {
         path: '/ReviewChange',
         name: 'ReviewChange',
         component: () => import('../components/ReviewChange.vue')
+      },
+      {
+        path: '/NewUser',
+        name: 'NewUser',
+        component: () => import('../components/NewUser.vue')
+      },
+      {
+        path: '/UserActivity',
+        name: 'UserActivity',
+        component: () => import('../components/UserActivity.vue')
+      },
+      {
+        path: '/businessType',
+        name: 'businessType',
+        component: () => import('../components/businessType.vue')
+      },
+      {
+        path: '/WordCloud',
+        name: 'WordCloud',
+        component: () => import('../components/WordCloud.vue')
+      },
+      {
+        path: '/areaRank',
+        name: 'areaRank',
+        component: () => import('../components/areaRank.vue')
       },
     ]
   },
@@ -46,6 +71,14 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: () => import('../views/Register.vue')
+  },
+  {
+    path: '/user',
+    name: 'User',
+    component: () => import('../views/User.vue')
+    // children: [
+    //
+    // ]
   },
 ]
 
