@@ -46,7 +46,7 @@
           </template>
         </el-menu-item>
       </el-submenu>
-      <el-menu-item index="/interview">
+      <el-menu-item index="/businessAdvice">
         <template slot="title">
           <i class="el-icon-s-custom"></i>
           <span slot="title">经营建议</span>
@@ -91,6 +91,12 @@
           <template slot="title">
             <i class="el-icon-alarm-clock"></i>
             <span slot="title">各地区商户</span>
+          </template>
+        </el-menu-item>
+        <el-menu-item index="/brand">
+          <template slot="title">
+            <i class="el-icon-alarm-clock"></i>
+            <span slot="title">连锁品牌</span>
           </template>
         </el-menu-item>
       </el-submenu>

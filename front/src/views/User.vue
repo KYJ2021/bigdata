@@ -22,12 +22,11 @@
                 </el-carousel-item>
               </el-carousel>
             </template>
-            <div class="recommend">
-                <h2>为你推荐</h2>
+            <div class="recommend" style="margin-left: 50px">
+                <h2 style="color: #666666">为你推荐</h2>
                 <el-row :gutter="24" class="cards">
-                    <el-col :span="6" v-for="(card, index) in recommendCards" :key="index">
+                    <el-col :span="5" v-for="(card, index) in recommendCards" :key="index">
                         <el-card :body-style="{ padding: '0px' }" shadow="hover" @click.native="handleCardClick(card)">
-                            <img :src="card.image" class="card-img" />
                             <div style="padding: 14px;">
                                 <span class="card-title">{{ card.title }}</span>
                                 <div class="card-price">{{ card.price }}</div>
@@ -36,16 +35,21 @@
                     </el-col>
                 </el-row>
             </div>
-            <div class="hot-deals">
-                <h2>热门优惠</h2>
-                <el-row :gutter="24" class="deals">
-                    <el-col :span="12" v-for="(deal, index) in hotDeals" :key="index">
-                        <el-card :body-style="{ padding: '0px' }" shadow="hover">
-                            <img :src="deal.image" class="card-img" />
+            <div class="friends" style="margin-left: 50px">
+                <h2 style="color: #666666">可能认识的人</h2>
+                <el-row :gutter="24" class="cards">
+                    <el-col :span="4" v-for="(card, index) in friends" :key="index">
+                        <el-card :body-style="{ padding: '0px' }" shadow="hover" @click.native="handleCardClick(card)">
                             <div style="padding: 14px;">
-                                <span class="card-title">{{ deal.title }}</span>
-                                <div class="card-price">{{ deal.price }}</div>
-                                <div class="card-label">{{ deal.label }}</div>
+                                <span class="card-title" style="font-size: 23px; color: #393939">{{ card.friend_name }}</span>
+                                <div style="color: #dcc85d;margin-left: 10px">
+                                    <img src="../assets/white-medium-star.svg" style="width: 23px; position: relative; top: 5px; right: 5px">
+                                    {{ card.fans }}
+                                </div>
+                                <div style="margin-left: 10px;color: #f09389">
+                                    <img src="../assets/red-heart.svg" style="width: 20px; position: relative; top: 5px; right: 5px">
+                                    {{ card.rewards }}
+                                </div>
                             </div>
                         </el-card>
                     </el-col>
@@ -65,7 +69,7 @@
     </div>
 </template>
 <script>
-import { mapState } from 'vuex';
+    import request from "@/utils/request";
 export default {
 data() {
     return {
@@ -106,38 +110,22 @@ data() {
                 image: '../assets/card8.jpg',
             },
         ],
-        hotDeals: [
-            { title: '汉堡王',
-                price: '¥ 20',
-                label: '限时折扣',
-                image: '../assets/deal1.jpg',
-            },
-            { title: '必胜客',
-                price: '¥ 50',
-                label: '满减优惠',
-                image: '../assets/deal2.jpg',
-            }, { title: '星巴克',
-                price: '¥ 30',
-                label: '新用户专享',
-                image: '../assets/deal3.jpg',
-            },
-            { title: '肯德基',
-                price: '¥ 25',
-                label: '新用户专享',
-                image: '../assets/deal4.jpg',
-            },
-        ],
+        friends: [],
     };
     },
-computed: {
-    ...mapState(['userInfo']),
-},
     created(){
-
+        this.load()
     },
 methods: {
     load(){
-
+        request.get("/user/friend",{
+            params: {
+                user: this.user.id
+            }
+        }).then(res => {
+            this.friends=res
+            console.log(this.friends)
+        })
     },
     handleMenuSelect(index) {
         console.log(`选择了菜单${index}`);

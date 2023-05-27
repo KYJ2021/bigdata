@@ -1,3 +1,5 @@
+import json
+
 from flask import Blueprint, jsonify, request
 import numpy as np
 import matplotlib.pyplot as plt
@@ -38,6 +40,7 @@ def get_rank():
     # 构建查询条件
     filters = []
     if categories:
+        categories = categories.replace("'", "''")
         filters.append(f"categories = '{categories}'")
     if isLocal == '0':
         if city:
@@ -112,7 +115,6 @@ def get_word_list():
     with conn.cursor() as cursor:
         cursor.execute(sql)
         res_list = cursor.fetchall()
-        print(res_list)
         res_list = res_list[0]['str_keywords'].split()
         data = []
         i=0
@@ -126,5 +128,52 @@ def get_word_list():
         # cursor.execute("SELECT COUNT(*) FROM ReviewKeywords"+" WHERE " + " AND ".join(filters))
         # total = cursor.fetchone()['COUNT(*)']
         # 将查询结果转换为字典格式，并返回给前端
-        print(data)
     return jsonify(data)
+@business_bp.route('/business/tip')
+def get_tip():
+    business_id = request.args.get('business_id', '')
+    # 构建查询条件
+    filters = []
+    if business_id:
+        filters.append(f"business_id = '{business_id}'")
+        print(business_id)
+    else:
+        print('error')
+        return 'error'
+
+    sql = f"SELECT * FROM Tip"
+    if filters:
+        sql += " WHERE " + " AND ".join(filters)
+    with conn.cursor() as cursor:
+        cursor.execute(sql)
+        res_list = cursor.fetchall()
+        res_list = res_list[0]['tip_text'].split('&')
+        data = []
+        for item in res_list:
+            data.append({
+                'text': item,
+            })
+        # cursor.execute("SELECT COUNT(*) FROM ReviewKeywords"+" WHERE " + " AND ".join(filters))
+        # total = cursor.fetchone()['COUNT(*)']
+        # 将查询结果转换为字典格式，并返回给前端
+    return jsonify(data)
+@business_bp.route('/business/advice')
+def get_advice():
+    categories_array = request.args.get('categories_array','')
+    categories_list = json.loads(categories_array)
+    print(categories_list)
+    # 构建查询条件
+    filters = []
+    for categories in categories_list:
+        categories = categories.replace("'","''")
+        filters.append(f"categories = '{categories}'")
+
+    sql = f"SELECT * FROM Advantages"
+    if filters:
+        sql += " WHERE " + " OR ".join(filters)
+    print(sql)
+    with conn.cursor() as cursor:
+        cursor.execute(sql)
+        res_list = cursor.fetchall()
+        print(res_list)
+    return jsonify(res_list)

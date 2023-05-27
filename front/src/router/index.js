@@ -60,6 +60,16 @@ const routes = [
         name: 'areaRank',
         component: () => import('../components/areaRank.vue')
       },
+      {
+        path: '/brand',
+        name: 'brand',
+        component: () => import('../components/brand.vue')
+      },
+      {
+        path: '/businessAdvice',
+        name: 'businessAdvice',
+        component: () => import('../components/businessAdvice.vue')
+      },
     ]
   },
   {

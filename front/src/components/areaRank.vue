@@ -63,7 +63,7 @@ export default {
       // 配置项
       const option = {
         title: {
-          text: "商户种类排名",
+          text: "地区排名",
         },
         tooltip: {
           trigger: "axis",
